@@ -25,8 +25,6 @@ MainWindow::MainWindow(QWidget *parent)
     ui->textRecPath->setText("/home/emre/Documents/test.264");
     connect(ui->imgBox,SIGNAL(MousePressed(QMouseEvent*)),this,SLOT(MousePressed(QMouseEvent*)));
 
-
-
     string strpx1= to_string(px1);
     string strpx2= to_string(px2);
     string strpy1= to_string(py1);
@@ -36,6 +34,17 @@ MainWindow::MainWindow(QWidget *parent)
     ui->textpx2->setText(QString::fromStdString(strpx2));
     ui->textpy1->setText(QString::fromStdString(strpy1));
     ui->textpy2->setText(QString::fromStdString(strpy2));
+
+
+    ui->sliderMax->setValue(maxSize);
+    ui->sliderMin->setValue(minSize);
+    ui->sliderAspectMin->setValue(aspMin*10);
+    ui->sliderAspectMax->setValue(aspMax*10);
+    ui->sliderBoundingH->setValue(brH);
+    ui->sliderBoundingW->setValue(brW);
+    ui->sliderDiagonal->setValue(dS);
+
+
 
 }
 
@@ -87,6 +96,21 @@ void MainWindow::ProcessFrame(){
     py.y=py2;
 
 
+    minSize = ui->sliderMin->value();
+    maxSize = ui->sliderMax->value();
+    aspMin = double(ui->sliderAspectMin->value())/10;
+    aspMax = double(ui->sliderAspectMax->value())/10;
+    brH = ui->sliderBoundingH->value();
+    brW = ui->sliderBoundingW->value();
+    dS = ui->sliderDiagonal->value();
+
+    ui->label_11->setText(QString::fromStdString(to_string(minSize)));
+    ui->label_12->setText(QString::fromStdString(to_string(maxSize)));
+    ui->label_13->setText(QString::number(aspMin,'f',2));
+    ui->label_14->setText(QString::number(aspMax,'f',2));
+    ui->label_15->setText(QString::fromStdString(to_string(brH)));
+    ui->label_16->setText(QString::fromStdString(to_string(brW)));
+    ui->label_17->setText(QString::fromStdString(to_string(dS)));
 
     //Background Subtrackter
 
@@ -117,12 +141,12 @@ void MainWindow::ProcessFrame(){
     for (auto &convexHull : convexHulls) {
         Blob possibleBlob(convexHull);
 
-        if (possibleBlob.currentBoundingRect.area() > 400 &&
-            possibleBlob.dblCurrentAspectRatio > 0.2 &&
-            possibleBlob.dblCurrentAspectRatio < 4.0 &&
-            possibleBlob.currentBoundingRect.width > 30 &&
-            possibleBlob.currentBoundingRect.height > 30 &&
-            possibleBlob.dblCurrentDiagonalSize > 60.0 &&
+        if (possibleBlob.currentBoundingRect.area() > 50 &&
+            possibleBlob.dblCurrentAspectRatio > aspMin &&
+            possibleBlob.dblCurrentAspectRatio < aspMax &&
+            possibleBlob.currentBoundingRect.width > brW &&
+            possibleBlob.currentBoundingRect.height > brH &&
+            possibleBlob.dblCurrentDiagonalSize > dS &&
             (cv::contourArea(possibleBlob.currentContour) / (double)possibleBlob.currentBoundingRect.area()) > 0.50) {
             currentFrameBlobs.push_back(possibleBlob);
         }
@@ -142,14 +166,14 @@ void MainWindow::ProcessFrame(){
     for (auto &convexHull : cnts) {
         Blob possibleBlob(convexHull);
 
-        if (possibleBlob.currentBoundingRect.area() > 400 &&
-            possibleBlob.dblCurrentAspectRatio > 0.2 &&
-            possibleBlob.dblCurrentAspectRatio < 4.0 &&
-            possibleBlob.currentBoundingRect.width > 30 &&
-            possibleBlob.currentBoundingRect.height > 30 &&
-            possibleBlob.dblCurrentDiagonalSize > 60.0 &&
+        if (possibleBlob.currentBoundingRect.area() > 50 &&
+            possibleBlob.dblCurrentAspectRatio > aspMin &&
+            possibleBlob.dblCurrentAspectRatio < aspMax &&
+            possibleBlob.currentBoundingRect.width > brW &&
+            possibleBlob.currentBoundingRect.height > brH &&
+            possibleBlob.dblCurrentDiagonalSize > dS &&
             (cv::contourArea(possibleBlob.currentContour) / (double)possibleBlob.currentBoundingRect.area()) > 0.50) {
-            if(contourArea(possibleBlob.currentContour)<20000 && contourArea(possibleBlob.currentContour)>1000){
+            if(contourArea(possibleBlob.currentContour)<maxSize && contourArea(possibleBlob.currentContour)>minSize){
                 currentFrameBlobsUpdated.push_back(possibleBlob);
             }
 
@@ -195,14 +219,14 @@ if (car.blnStillBeingTracked == true && car.centerPositions.size() > 2){
         }
     }
 
-    putText(FrameCopy,"Cars : "+to_string(carCount),Point(50,50),FONT_HERSHEY_SIMPLEX,1,Scalar(255,255,0),1);
+    putText(FrameCopy,"Cars : "+to_string(carCount),Point(50,50),FONT_HERSHEY_SIMPLEX,1,Scalar(255,0,255),2);
 
 
 
 
     QImage image=QImage((uchar*)FrameCopy.data,FrameCopy.cols,FrameCopy.rows,FrameCopy.step,QImage::Format_RGB888);
     ui->imgBox->setGeometry(0,0,FrameCopy.cols,FrameCopy.rows);
-    ui->imgBox->setPixmap(QPixmap::fromImage(image));
+    ui->imgBox->setPixmap(QPixmap::fromImage(image).scaled(ui->imgBox->size(),Qt::KeepAspectRatio,Qt::SmoothTransformation));
 
     writer.write(FrameCopy);
 
@@ -365,11 +389,8 @@ void MainWindow::MousePressed(QMouseEvent *ev)
     ui->textpx2->setText(QString::fromStdString(strpx2));
     ui->textpy1->setText(QString::fromStdString(strpy1));
     ui->textpy2->setText(QString::fromStdString(strpy2));
-    ui->label_5->setText(QString::fromStdString(strpx1));
+
 }
-
-
-
 
 
 void MainWindow::InitVideo(){

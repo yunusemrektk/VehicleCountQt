@@ -28,7 +28,7 @@ LIBS += /home/emre/Documents/opencvSetup/opencv/build/lib/libopencv_videoio.so
 LIBS += /home/emre/Documents/opencvSetup/opencv/build/lib/libopencv_tracking.so
 
 
-openh264-1.6.0-win32msvc.dll
+#openh264-1.6.0-win32msvc.dll
 SOURCES += \
     blob.cpp \
     main.cpp \

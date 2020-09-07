@@ -32,7 +32,7 @@ private:
     Mat frame;
     Ptr<BackgroundSubtractor> sub ;
     vector<vector<Point>> contours;
-    vector<Vec4i> hierarchy;
+
     vector<Blob> blobs;
     bool blnFirstFrame = true;
     int carCount=0;
@@ -40,37 +40,9 @@ private:
     int ex;
     Size frameSize;
     VideoWriter writer;
+    int minSize =100 ,maxSize = 20000 ,brW=30,brH=30,dS=60;
+    double aspMin = 0.2,aspMax=4.0;
 
-    Ptr<MultiTracker> multiTracker = MultiTracker::create();
-    vector<Rect> bboxes;
-    vector<string> trackerTypes = {"BOOSTING", "MIL", "KCF", "TLD", "MEDIANFLOW", "GOTURN", "MOSSE", "CSRT"};
-    Ptr<Tracker> createTrackerByName(string trackerType){
-    Ptr<Tracker> tracker;
-
-          if (trackerType ==  trackerTypes[0])
-              tracker = TrackerBoosting::create();
-          else if (trackerType == trackerTypes[1])
-            tracker = TrackerMIL::create();
-         else if (trackerType == trackerTypes[2])
-            tracker = TrackerKCF::create();
-          else if (trackerType == trackerTypes[3])
-            tracker = TrackerTLD::create();
-           else if (trackerType == trackerTypes[4])
-            tracker = TrackerMedianFlow::create();
-           else if (trackerType == trackerTypes[5])
-            tracker = TrackerGOTURN::create();
-          else if (trackerType == trackerTypes[6])
-             tracker = TrackerMOSSE::create();
-           else if (trackerType == trackerTypes[7])
-            tracker = TrackerCSRT::create();
-           else {
-            cout << "Incorrect tracker name" << endl;
-             cout << "Available trackers are: " << endl;
-            for (vector<string>::iterator it = trackerTypes.begin() ; it != trackerTypes.end(); ++it)
-              std::cout << " " << *it << endl;
-     }
-      return tracker;
-}
 
 public:
     MainWindow(QWidget *parent = nullptr);
