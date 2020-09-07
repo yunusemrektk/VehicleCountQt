@@ -21,8 +21,8 @@ MainWindow::MainWindow(QWidget *parent)
 
 {
     ui->setupUi(this);
-    ui->textRtspUrl->setText("C:\\Users\\YUNUS EMRE\\Desktop\\video1.mp4");
-    ui->textRecPath->setText("C:\\Users\\YUNUS EMRE\\Desktop\\videotest.264");
+    ui->textRtspUrl->setText("/home/emre/Documents/video1.mp4");
+    ui->textRecPath->setText("/home/emre/Documents/videotest.264");
     connect(ui->imgBox,SIGNAL(MousePressed(QMouseEvent*)),this,SLOT(MousePressed(QMouseEvent*)));
 
     string strpx1= to_string(px1);
@@ -108,8 +108,8 @@ void MainWindow::ProcessFrame(){
     ui->label_12->setText(QString::fromStdString(to_string(maxSize)));
     ui->label_13->setText(QString::number(aspMin,'f',2));
     ui->label_14->setText(QString::number(aspMax,'f',2));
-    ui->label_15->setText(QString::fromStdString(to_string(brH)));
-    ui->label_16->setText(QString::fromStdString(to_string(brW)));
+    ui->label_15->setText(QString::fromStdString(to_string(brW)));
+    ui->label_16->setText(QString::fromStdString(to_string(brH)));
     ui->label_17->setText(QString::fromStdString(to_string(dS)));
 
     //Background Subtrackter
