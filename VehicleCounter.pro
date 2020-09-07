@@ -15,18 +15,18 @@ DEFINES += QT_DEPRECATED_WARNINGS
 # You can also select to disable deprecated APIs only up to a certain version of Qt.
 #DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # disables all the APIs deprecated before Qt 6.0.0
 
-INCLUDEPATH += usr/localinclude
+INCLUDEPATH += C:\opencv-4.4.0\build\install\include
 
-LIBS += /home/emre/Documents/opencvSetup/opencv/build/lib/libopencv_core.so
-LIBS += /home/emre/Documents/opencvSetup/opencv/build/lib/libopencv_highgui.so
-LIBS += /home/emre/Documents/opencvSetup/opencv/build/lib/libopencv_imgcodecs.so
-LIBS += /home/emre/Documents/opencvSetup/opencv/build/lib/libopencv_imgproc.so
-LIBS += /home/emre/Documents/opencvSetup/opencv/build/lib/libopencv_features2d.so
-LIBS += /home/emre/Documents/opencvSetup/opencv/build/lib/libopencv_calib3d.so
-LIBS += /home/emre/Documents/opencvSetup/opencv/build/lib/libopencv_video.so
-LIBS += /home/emre/Documents/opencvSetup/opencv/build/lib/libopencv_videoio.so
-LIBS += /home/emre/Documents/opencvSetup/opencv/build/lib/libopencv_tracking.so
-
+LIBS += C:\opencv-4.4.0\build\bin\libopencv_core440.dll
+LIBS += C:\opencv-4.4.0\build\bin\libopencv_highgui440.dll
+LIBS += C:\opencv-4.4.0\build\bin\libopencv_imgcodecs440.dll
+LIBS += C:\opencv-4.4.0\build\bin\libopencv_imgproc440.dll
+LIBS += C:\opencv-4.4.0\build\bin\libopencv_features2d440.dll
+LIBS += C:\opencv-4.4.0\build\bin\libopencv_calib3d440.dll
+LIBS += C:\opencv-4.4.0\build\bin\libopencv_video440.dll
+LIBS += C:\opencv-4.4.0\build\bin\libopencv_videoio440.dll
+LIBS += C:\opencv-4.4.0\build\bin\libopencv_tracking440.dll
+LIBS += C:\opencv-4.4.0\build\bin\openh264-1.8.0-win32.dll
 
 #openh264-1.6.0-win32msvc.dll
 SOURCES += \
@@ -36,7 +36,6 @@ SOURCES += \
     qlabelmy.cpp
 
 HEADERS += \
-    Blob.h \
     blob.h \
     mainwindow.h \
     qlabelmy.h
@@ -49,7 +48,4 @@ qnx: target.path = /tmp/$${TARGET}/bin
 else: unix:!android: target.path = /opt/$${TARGET}/bin
 !isEmpty(target.path): INSTALLS += target
 
-DISTFILES += \
-    README.md \
-    VehicleCounter.pro.user.e703e02 \
-    appconfig.js
+DISTFILES +=

@@ -21,8 +21,8 @@ MainWindow::MainWindow(QWidget *parent)
 
 {
     ui->setupUi(this);
-    ui->textRtspUrl->setText("/home/emre/Documents/video1.mp4");
-    ui->textRecPath->setText("/home/emre/Documents/test.264");
+    ui->textRtspUrl->setText("C:\\Users\\YUNUS EMRE\\Desktop\\video1.mp4");
+    ui->textRecPath->setText("C:\\Users\\YUNUS EMRE\\Desktop\\videotest.264");
     connect(ui->imgBox,SIGNAL(MousePressed(QMouseEvent*)),this,SLOT(MousePressed(QMouseEvent*)));
 
     string strpx1= to_string(px1);
