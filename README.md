@@ -2,10 +2,9 @@
 Video Link : https://youtu.be/v9pzuO6M4_A
 
 # Requirements: 
--Crow Framework  
+-OpenCv    
 -Qt Framework C++  
--Npm http-server  
--Ngrok  
+ 
 
 # How to Run ?  
 
