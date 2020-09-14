@@ -17,8 +17,8 @@ click second time to screen for selecting end of the line ,
 
 <img src="test.PNG" width=500>
 
-# Settings
--There is a panel that helps to set configurations easly for each stream. 
+# Settings  
+-There is a panel that helps to set configurations easly for each stream.   
 <img src="panel.PNG" width=500>
 
 -Min Car Size : This is a base limit of a car size as area.  
